@@ -1,24 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;1,500&display=swap");
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
   font-family: "Poppins", sans-serif;
   background-image: url("images/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 .login-container {
@@ -26,7 +20,9 @@ body {
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 100%;
+  max-width: 350px;
+  box-sizing: border-box;
 }
 
 .login-container h2 {
@@ -55,49 +51,27 @@ button {
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.1s ease-in-out;
+  color: white;
+  font-weight: bold;
 }
 
 button:hover {
   background-color: #2a91ff;
-  border-radius: 10px;
 }
 
 button:active {
   transform: scale(0.95);
 }
 
-.welcome-container {
-  text-align: center;
-  background-color: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  margin: auto;
-}
-
-.welcome-container h1 {
-  margin-bottom: 20px;
-}
-
-.continue-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-.continue-button:hover {
-  background-color: #c82333;
-}
-
 .flash-messages {
-  margin: 20px auto;
-  width: 90%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
   max-width: 400px;
   text-align: center;
+  z-index: 1000;
 }
 
 .alert {
