@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Welcome </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}
+    </head>
+    <body>
+        <div class="welcome-container">
+            <h1> Hello, {{ username }} </h1>
+            <p> Welcome to Share Market</p>
+            <a href="/dashboard" class="continue-button"> Continue </a>
+        </div>
+    </body>
+</html>
