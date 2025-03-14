@@ -83,3 +83,29 @@ button:active {
   color: #721c24;
   font-weight: bold;
 }
+.welcome-container {
+  text-align: center;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: auto;
+}
+
+.welcome-container h1 {
+  margin-bottom: 20px;
+}
+
+.continue-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.continue-button:hover {
+  background-color: #c82333;
+}
