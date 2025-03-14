@@ -90,7 +90,17 @@ def test_db():
     users = User.query.all()
     return f"Found {len(users)} users"
 
-
+@app.route("/welcome")
+def welcome():
+    if "user_id" in session:
+        return render_template("welcome.html",username=session["username"])
+    else:
+        return redirect(url_for("index"))
+    
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+    
 # -------------------- Main ------------------------
 
 if __name__ == '__main__':
