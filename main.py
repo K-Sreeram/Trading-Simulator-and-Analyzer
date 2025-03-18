@@ -1,7 +1,7 @@
 # integrate HTML with the flask
 # HTTP verb GET and POST
 
-from flask import Flask, redirect, url_for, render_template, request, flash
+from flask import Flask, redirect, url_for, render_template, request, flash,session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -78,7 +78,9 @@ def login():
 
         if user and check_password_hash(user.password, password):
             flash("Login Successful!")
-            return redirect(url_for('dashboard'))  # Redirect to dashboard or home page after login
+            session["user_id"] = user.id
+            session["username"] = user.username
+            return redirect(url_for('welcome'))  # Redirect to welcome or home page after login
         else:
             flash("Invalid Username or Password!")
             return redirect(url_for('loginPage'))
@@ -95,7 +97,7 @@ def welcome():
     if "user_id" in session:
         return render_template("welcome.html",username=session["username"])
     else:
-        return redirect(url_for("index"))
+        return redirect(url_for("loginPage"))
     
 @app.route("/dashboard")
 def dashboard():
