@@ -15,7 +15,7 @@ def get_stock_data(stock_symbol,start_date,end_date, criteria):
 
 
 def generate_graph(df, criteria, stock_symbol):
-    df["DATE"] = pd.to_datetime(df["DATE"])  # Ensure DATE is in datetime format
+    df["DATE"] = pd.to_datetime(df["DATE"])  
 
     plt.figure(figsize=(10, 5))
     plt.plot(df["DATE"], df[criteria], marker='o', linestyle='-', label=criteria)
@@ -32,15 +32,12 @@ def generate_graph(df, criteria, stock_symbol):
 
 
 if __name__ == "__main__":
-    stock_symbol = "RELIANCE"  # Example: Reliance stock symbol
+    stock_symbol = "RELIANCE"  
     start_date = "2024-03-01"
     end_date = "2024-03-15"
-    criteria = "CLOSE"  # Change to "OPEN", "HIGH", "LOW", etc.
+    criteria = "CLOSE"  
 
-    # Get historical stock data and plot it
     graph_path = get_stock_data(stock_symbol, start_date, end_date, criteria)
     print(f"Graph saved at: {graph_path}")
 
-    # Fetch live stock data
-    ## live_data = get_live_stock_data(stock_symbol)
-    # print("Live Stock Data:", live_data)
+
