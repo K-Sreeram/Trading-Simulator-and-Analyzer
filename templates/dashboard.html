@@ -1,11 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dashboard</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='images/logo.ico')}}"
+      ,
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='dashboard.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='sidebar.css')}}"
+    />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <aside id="sidebar" class="sidebar">
+      <img
+        class="logo"
+        src="{{url_for('static', filename='images/logo.png')}}"
+        alt="logo"
+      />
+      <h2>MarketPulse</h2>
+      <a class="sidebar-tabs" href="/dashboard">Dashboard</a>
+      <a class="sidebar-tabs" href="/plot">Stock History</a>
+      <a class="sidebar-tabs" href="/compare">Compare Stocks</a>
+      <a href="/logout" class="logout-button">Logout</a>
+    </aside>
+
+    <main>
+      <h1 class="dashboard-title">DASHBOARD</h1>
+      <div class="stock-live">
+        <h2>Live Stock Data</h2>
+        <!-- the data is stored in csv file i just want to show a table of it -->
+        <!-- add a order by button with drop down list for selecting-->
+        <div>
+          <label class="order-label" for="orderBy">Order by:</label>
+          <select class="order-dropdown" name="orderBy" id="orderBy">
+            <option value="lastPrice">Last Price</option>
+            <option value="change">Change</option>
+            <option value="pChange">Previous Change</option>
+            <option value="previousClose">Previous Close</option>
+            <option value="open">Open</option>
+            <option value="close">Close</option>
+            <option value="basePrice">Base Price</option>
+          </select>
+          <button class="sort-button" onclick="sortData()">Apply</button>
+          <label class="filter-label" for="filterBy">Filter by:</label>
+          <select class="filter-dropdown" name="filterBy" id="filterBy">
+            <option value="lastPrice">Last Price</option>
+            <option value="change">Change</option>
+            <option value="pChange">Previous Change</option>
+            <option value="previousClose">Previous Close</option>
+            <option value="open">Open</option>
+            <option value="close">Close</option>
+            <option value="basePrice">Base Price</option>
+          </select>
+          <!-- create two inputs from and to -->
+          <input
+            class="filter-from"
+            type="number"
+            name="filterFrom"
+            id="filterFrom"
+            placeholder="from"
+          />
+          <input
+            class="filter-to"
+            type="number"
+            name="filterTo"
+            id="filterTo"
+            placeholder="to"
+          />
+          <button class="filter-button" onclick="filterData()">FILTER</button>
+        </div>
+        <div class="loader"></div>
+        <div class="table-container">
+          <table id="dataTable"></table>
+        </div>
+      </div>
+    </main>
+    <script src="{{url_for('static', filename='dashboard.js')}}"></script>
+  </body>
 </html>
