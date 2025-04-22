@@ -15,7 +15,11 @@ def get_stock_data(stock_symbol,start_date,end_date, criteria):
 
 
 def generate_graph(df, criteria, stock_symbol):
+<<<<<<< HEAD
     df["DATE"] = pd.to_datetime(df["DATE"]) 
+=======
+    df["DATE"] = pd.to_datetime(df["DATE"])  
+>>>>>>> 920e444587bcf53596ad84bc49277e291c88f1ff
 
     plt.figure(figsize=(10, 5))
     plt.plot(df["DATE"], df[criteria], marker='o', linestyle='-', label=criteria)
@@ -39,3 +43,8 @@ if __name__ == "__main__":
 
     graph_path = get_stock_data(stock_symbol, start_date, end_date, criteria)
     print(f"Graph saved at: {graph_path}")
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 920e444587bcf53596ad84bc49277e291c88f1ff
