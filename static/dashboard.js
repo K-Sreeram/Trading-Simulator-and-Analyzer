@@ -1,13 +1,50 @@
+// Get data from local storage if it exists
+var cachedData = sessionStorage.getItem("cachedLiveData");
+
+// If data exists, render table with it else fetch data from server
+if (cachedData) {
+  cachedData = JSON.parse(cachedData);
+  renderTable(cachedData);
+} else {
+  fetchData();
+}
+
+function fetchData() {
+  fetch("/api/liveData", {
+    method: "GET",
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(function (jsonData) {
+      jsonData = Object.values(jsonData);
+      var data = jsonData;
+
+      // Cache data in local storage
+      sessionStorage.setItem("cachedLiveData", JSON.stringify(data));
+
+      // Render table with data
+      renderTable(data);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+}
+
 function renderTable(data) {
   var table = document.getElementById("dataTable");
   var orderBy = document.getElementById("orderBy");
 
+  // Clear existing table content
   table.innerHTML = "";
 
-  var thread = table.createThread();
-  var row = thread.insertRow();
+  // Create table header row
+  var thead = table.createTHead();
+  var row = thead.insertRow();
   columns = Object.keys(data[0]);
-
   for (var key of columns) {
     let th = document.createElement("th");
     let text = document.createTextNode(key);
@@ -22,10 +59,10 @@ function renderTable(data) {
       var text = document.createTextNode(element[key]);
       cell.appendChild(text);
     }
-
-    var loader = document.getElementsByClassName("loader")[0];
-    loader.style.display = "none";
   }
+
+  var loader = document.getElementsByClassName("loader")[0];
+  loader.style.display = "none";
 }
 
 function orderBy(property) {
@@ -52,7 +89,7 @@ function sortData() {
     cachedData.reverse();
     renderTable(cachedData);
     loader.style.display = "none";
-  }, 1000);
+  }, 1000); // Simulating an asynchronous operation with a timeout
 }
 
 function filterData() {
