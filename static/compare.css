@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  background-image: url("images/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Light gray with 50% opacity */
+  z-index: -1;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-top: 1.5rem;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#plotContainer {
+  margin-top: 2rem;
+}
+
+label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.compare-form-top {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.compare-title {
+  font-size: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.select-instructions {
+  margin-left: auto;
+  margin-right: 3rem;
+}
+
+.date-picker {
+  background-color: #d5fed6;
+  outline: none;
+  border-radius: 5px;
+  padding: 3px;
+  margin-right: 2rem;
+}
+
+.stock-dropdown,
+.criteria-dropdown {
+  font-size: 1rem;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #4caf50;
+  background-color: #d5fed6;
+  cursor: pointer;
+  outline: none;
+  scroll-behavior: smooth;
+  font-weight: 500;
+}
+
+.stock-dropdown option,
+.criteria-dropdown option {
+  font-size: 1rem;
+  padding: 0.2rem;
+  /* border-radius: 0.5rem; */
+  border: none;
+  background-color: #d5fed6;
+  color: #333;
+  font-weight: 500;
+}
+
+.stock-dropdown option:hover,
+.criteria-dropdown option:hover {
+  background-color: #c1f2c4;
+}
+
+.stock-dropdown:hover,
+.criteria-dropdown:hover {
+  background-color: #c1f2c4;
+}
+
+.stock-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.stock-dropdown::-webkit-scrollbar-thumb {
+  background-color: #4caf50;
+  border-radius: 4px;
+}
+
+.stock-dropdown::-webkit-scrollbar-track {
+  background-color: #d5fed6;
+}
+
+.submit-button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.2rem;
+  width: 4.5rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: #20a822;
+  border: 2px solid #20a822;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #20a822;
+  color: white;
+  border: 1px solid #20a822;
+}
+
+.submit-button:active {
+  background-color: #5fd961;
+  color: white;
+  /* border: none; */
+}

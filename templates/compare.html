@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plot Graph</title>
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='images/logo.ico')}}"
+      ,
+      type="image/x-icon"
+    />
+    <!-- link the js file which is present in the static folder -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='compare.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='sidebar.css')}}"
+    />
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <aside id="sidebar" class="sidebar">
+      <img
+        class="logo"
+        src="{{url_for('static', filename='images/logo.png')}}"
+        alt="logo"
+      />
+      <h2>MarketPulse</h2>
+      <a class="sidebar-tabs" href="/dashboard">Dashboard</a>
+      <a class="sidebar-tabs" href="/plot">Stock History</a>
+      <a class="sidebar-tabs" href="/compare">Compare Stocks</a>
+      <a href="/logout" class="logout-button">Logout</a>
+    </aside>
+    <main>
+      <form class="compare-form" id="compareForm">
+        <!-- create a selector to select stock names (maximum 5). stock data is passed in stocks -->
+        <div class="compare-form-top">
+          <label class="compare-title" for="selectStocks">Select Stocks:</label>
+          <select
+            class="stock-dropdown"
+            name="selectStocks"
+            id="stocks"
+            multiple
+          >
+            {% for key, value in stocks.items() %}
+            <option value="{{key}}">{{value}}</option>
+            {% endfor %}
+          </select>
+          <p class="select-instructions">
+            How to select: <br />
+            Press ctrl + mouse left click
+          </p>
+        </div>
+        <!-- put two date selectors (begin and end) and begin date should be before -->
+        <label for="begin">Begin Date:</label>
+        <input class="date-picker" type="date" name="begin" id="begin" />
+        <label for="end">End Date:</label>
+        <input class="date-picker" type="date" name="end" id="end" />
+        <!-- selected criteria out of eight -->
+        <label for="criteria">Criteria</label>
+        <select class="criteria-dropdown" name="criteria" id="criteria">
+          <option value="open">Open</option>
+          <option value="high">High</option>
+          <option value="low">Low</option>
+          <option value="close">Close</option>
+          <option value="ltp">Last Trade Price</option>
+          <option value="volume">Volume</option>
+          <option value="value">Value</option>
+          <option value="no of trades">No of Trades</option>
+        </select>
+        <input class="submit-button" type="submit" value="Submit" />
+      </form>
+      <div class="loader"></div>
+      <!-- Container for displaying the plot -->
+      <div id="plotContainer" class="graph"></div>
+    </main>
+    <script src="{{url_for('static', filename='compare.js')}}"></script>
+  </body>
+</html>

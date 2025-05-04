@@ -4,7 +4,9 @@
 from flask import Flask, redirect, url_for, render_template, request, flash,session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from utils.data import stock_names
 from werkzeug.security import generate_password_hash, check_password_hash
+from utils.get_data import get_stock_data, get_live_stock_data, generate_combined_graph
 
 app = Flask(__name__)
 
@@ -28,6 +30,10 @@ class User(db.Model):
 
 # -------------------- Routes ------------------------
 
+# Initialize Database within Application Context
+with app.app_context():
+    db.create_all()
+    
 # Home route (Login Page)
 @app.route('/')
 def loginPage():
@@ -36,7 +42,7 @@ def loginPage():
 
 # Register Page route
 @app.route('/register', methods=["GET", "POST"])
-def registerPage():
+def register():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -92,6 +98,14 @@ def test_db():
     users = User.query.all()
     return f"Found {len(users)} users"
 
+
+@app.route("/logout")
+def logout():
+    session.pop("user_id", None)
+    session.pop("username", None)
+    return redirect(url_for("index"))
+
+
 @app.route("/welcome")
 def welcome():
     if "user_id" in session:
@@ -103,6 +117,63 @@ def welcome():
 def dashboard():
     return render_template("dashboard.html")
     
+
+
+@app.route("/plot")
+def plot():
+    stocks = stock_names
+    return render_template("plot.html", stocks=stocks)
+
+
+@app.route("/compare")
+def compare():
+    stocks = stock_names
+    return render_template("compare.html", stocks=stocks)
+
+
+
+
+@app.route("/api/stock", methods=["GET"])
+def get_stock_data_api():
+    selected_stock = request.args.get("stock")
+    data = get_live_stock_data(selected_stock)
+    return data
+
+
+@app.route("/api/plot", methods=["GET"])
+def get_plot():
+    selected_stock = request.args.get("stock")
+    selected_criteria = request.args.get("criteria")
+    start_date = request.args.get("begin")
+    end_date = request.args.get("end")
+    image_path = get_stock_data(selected_stock, start_date, end_date, selected_criteria)
+    print("Image Path: ", image_path)
+    json_data = {"image_path": image_path}
+    return json_data
+
+
+@app.route("/api/compare", methods=["POST"])
+def get_compare_plot():
+    data = request.get_json()
+
+    selected_stocks = data["stocks"]
+    selected_criteria = data["criteria"]
+    start_date = data["begin"]
+    end_date = data["end"]
+    image_path = generate_combined_graph(
+        selected_criteria, selected_stocks, start_date, end_date
+    )
+    print("Image Path: ", image_path)
+    json_data = {"image_path": image_path}
+    return json_data
+
+
+@app.route("/api/liveData", methods=["GET"])
+def get_live_data():
+    df = get_live_stock_data()
+    json_data = df.to_json(orient="records")
+    return json_data
+
 # -------------------- Main ------------------------
 
 if __name__ == '__main__':
