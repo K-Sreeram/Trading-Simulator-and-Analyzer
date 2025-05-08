@@ -23,7 +23,7 @@ def get_live_stock_data(stock_symbol):
 def generate_graph(df, criteria, stock_symbol):
     df = df[["DATE", criteria]]
     fig = px.line(df, x="DATE", y=criteria, title=criteria + " vs Date for " + stock_symbol)
-    filepath = "static/graph/history.html"
+    filepath = f"static/graph/history.html"
     fig.write_html(filepath)
     return filepath
 

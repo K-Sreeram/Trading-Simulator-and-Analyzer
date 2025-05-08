@@ -12,7 +12,12 @@ body {
   background-size: cover;
   background-position: center;
 }
-
+.logo {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* optional: centers the image */
+}
 .overlay {
   position: absolute;
   top: 0;
@@ -40,12 +45,8 @@ main {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .plot-form {
@@ -71,7 +72,7 @@ main {
   margin-top: 0;
 }
 
-.stock-dropdown,
+.stock-dropdown, 
 .criteria-dropdown {
   font-size: 1rem;
   padding: 0.2rem;
@@ -105,16 +106,16 @@ main {
   background-color: #c1f2c4;
 }
 
-.stock-dropdown::-webkit-scrollbar {
+.stock-dropdown::-webkit-scrollbar{
   width: 8px;
 }
 
-.stock-dropdown::-webkit-scrollbar-thumb {
+.stock-dropdown::-webkit-scrollbar-thumb{
   background-color: #4caf50;
   border-radius: 4px;
 }
 
-.stock-dropdown::-webkit-scrollbar-track {
+.stock-dropdown::-webkit-scrollbar-track{
   background-color: #d5fed6;
 }
 

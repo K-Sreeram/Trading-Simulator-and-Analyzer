@@ -15,7 +15,12 @@ aside {
   flex-direction: column;
   border-top-right-radius: 5rem;
 }
-
+.logo {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* optional: centers the image */
+}
 .logo {
   width: 150px;
 }

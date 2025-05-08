@@ -16,7 +16,6 @@
       rel="stylesheet"
       href="{{url_for('static', filename='sidebar.css')}}"
     />
-    <script src="{{url_for('static', filename='plot.js')}}"></script>
   </head>
   <body>
     <div class="overlay"></div>
@@ -67,5 +66,6 @@
       <!-- Container for displaying the plot -->
       <div id="plotContainer" class="graph"></div>
     </main>
+    <script src="{{url_for('static', filename='plot.js')}}"></script>
   </body>
 </html>
