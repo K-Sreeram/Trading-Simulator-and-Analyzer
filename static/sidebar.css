@@ -1,0 +1,57 @@
+/* Sidebar styling */
+aside {
+  width: 20%;
+  min-width: 250px; /* Prevent sidebar from shrinking too much */
+  background-color: rgb(161, 255, 193);
+  padding: 20px;
+  box-sizing: border-box; /* Ensure padding doesn’t increase width */
+}
+
+.sidebar {
+  font-size: 1.8rem;
+  margin: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 5rem;
+}
+.logo {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* optional: centers the image */
+}
+.logo {
+  width: 80%; /* Make logo responsive to sidebar width */
+  max-width: 100px; /* Cap the logo size */
+  margin-bottom: 1rem; /* Add spacing below the logo */
+}
+
+.sidebar-tabs {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+  margin: 0.8rem 0;
+}
+
+/* Apply effect on hovering on text only, not on the whole box */
+.sidebar-tabs:hover {
+  color: #4caf50;
+  cursor: pointer;
+}
+
+.logout-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 4rem;
+  width: 8rem;
+  font-size: 1.25rem;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}

@@ -6,7 +6,6 @@
     <link
       rel="icon"
       href="{{url_for('static', filename='images/logo.ico')}}"
-      ,
       type="image/x-icon"
     />
     <link
@@ -35,11 +34,26 @@
 
     <main>
       <h1 class="dashboard-title">DASHBOARD</h1>
-      <div class="stock-live">
+    
+      <!-- Stock Prediction Section First -->
+      <div class="section-container stock-prediction">
+        <h2>Stock Price Prediction</h2>
+        <div class="prediction-controls">
+          <label class="predict-label" for="predictStock">Select Stock:</label>
+          <select class="predict-dropdown" name="predictStock" id="predictStock">
+            <!-- Populated by JS -->
+          </select>
+          <button class="predict-button" onclick="predictPrice()">Predict</button>
+        </div>
+        <div class="prediction-result">
+          <p id="predictionText"></p>
+        </div>
+      </div>
+    
+      <!-- Live Stock Data Section -->
+      <div class="section-container stock-live">
         <h2>Live Stock Data</h2>
-        <!-- the data is stored in csv file i just want to show a table of it -->
-        <!-- add a order by button with drop down list for selecting-->
-        <div>
+        <div class="stock-controls">
           <label class="order-label" for="orderBy">Order by:</label>
           <select class="order-dropdown" name="orderBy" id="orderBy">
             <option value="lastPrice">Last Price</option>
@@ -51,6 +65,7 @@
             <option value="basePrice">Base Price</option>
           </select>
           <button class="sort-button" onclick="sortData()">Apply</button>
+    
           <label class="filter-label" for="filterBy">Filter by:</label>
           <select class="filter-dropdown" name="filterBy" id="filterBy">
             <option value="lastPrice">Last Price</option>
@@ -61,21 +76,8 @@
             <option value="close">Close</option>
             <option value="basePrice">Base Price</option>
           </select>
-          <!-- create two inputs from and to -->
-          <input
-            class="filter-from"
-            type="number"
-            name="filterFrom"
-            id="filterFrom"
-            placeholder="from"
-          />
-          <input
-            class="filter-to"
-            type="number"
-            name="filterTo"
-            id="filterTo"
-            placeholder="to"
-          />
+          <input class="filter-from" type="number" id="filterFrom" placeholder="From" />
+          <input class="filter-to" type="number" id="filterTo" placeholder="To" />
           <button class="filter-button" onclick="filterData()">FILTER</button>
         </div>
         <div class="loader"></div>
@@ -84,6 +86,7 @@
         </div>
       </div>
     </main>
+    
     <script src="{{url_for('static', filename='dashboard.js')}}"></script>
   </body>
 </html>

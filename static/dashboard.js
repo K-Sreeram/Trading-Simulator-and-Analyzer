@@ -1,10 +1,10 @@
-// Get data from local storage if it exists
 var cachedData = sessionStorage.getItem("cachedLiveData");
 
 // If data exists, render table with it else fetch data from server
 if (cachedData) {
   cachedData = JSON.parse(cachedData);
   renderTable(cachedData);
+  populateStockDropdown(cachedData);
 } else {
   fetchData();
 }
@@ -26,11 +26,12 @@ function fetchData() {
       // Cache data in local storage
       sessionStorage.setItem("cachedLiveData", JSON.stringify(data));
 
-      // Render table with data
+      // Render table and populate dropdown with data
       renderTable(data);
+      populateStockDropdown(data);
     })
     .catch(function (error) {
-      console.error("Error:", error);
+      console.error("Error fetching live data:", error);
     });
 }
 
@@ -44,7 +45,7 @@ function renderTable(data) {
   // Create table header row
   var thead = table.createTHead();
   var row = thead.insertRow();
-  columns = Object.keys(data[0]);
+  columns = Object.keys(data[0] || {});
   for (var key of columns) {
     let th = document.createElement("th");
     let text = document.createTextNode(key);
@@ -63,6 +64,32 @@ function renderTable(data) {
 
   var loader = document.getElementsByClassName("loader")[0];
   loader.style.display = "none";
+}
+
+function populateStockDropdown(data) {
+  var predictStockSelector = document.getElementById("predictStock");
+  predictStockSelector.innerHTML = ""; // Clear existing options
+
+  // Extract stock symbols using the correct key 'Stock'
+  var stockSymbols = data.map(item => item.Stock).filter(symbol => symbol);
+
+  // Add options to the dropdown, appending .NS for yfinance compatibility
+  stockSymbols.forEach(symbol => {
+    var option = document.createElement("option");
+    option.value = symbol + ".NS"; // Append .NS for yfinance
+    option.textContent = symbol; // Display the symbol without .NS
+    predictStockSelector.appendChild(option);
+  });
+
+  // If no symbols are found, add a default option
+  if (stockSymbols.length === 0) {
+    var option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No stocks available";
+    option.disabled = true;
+    option.selected = true;
+    predictStockSelector.appendChild(option);
+  }
 }
 
 function orderBy(property) {
@@ -113,4 +140,36 @@ function filterData() {
     renderTable(data);
     loader.style.display = "none";
   }, 1000); // Simulating an asynchronous operation with a timeout
+}
+
+function predictPrice() {
+  var predictStockSelector = document.getElementById("predictStock");
+  var stock = predictStockSelector.value;
+  var predictionText = document.getElementById("predictionText");
+
+  if (!stock) {
+    predictionText.textContent = "Please select a valid stock.";
+    return;
+  }
+
+  predictionText.textContent = "Predicting...";
+
+  fetch(`/api/predict?stock=${stock}`, {
+    method: "GET",
+  })
+    .then(function (response) {
+      return response.json().then(data => ({ status: response.status, data }));
+    })
+    .then(function ({ status, data }) {
+      if (status !== 200) {
+        throw new Error(data.error || "Unknown error occurred");
+      }
+      predictionText.textContent = 
+        `Stock: ${data.stock} | Latest Price: $${data.latest_price} | ` +
+        `Predicted Price for ${data.prediction_date}: $${data.predicted_price}`;
+    })
+    .catch(function (error) {
+      console.error("Prediction Error:", error);
+      predictionText.textContent = `Error: ${error.message}`;
+    });
 }
